@@ -1,0 +1,43 @@
+---
+title: "MCP overview"
+description: "Use Havincy as a tool inside ChatGPT, Claude, Cursor and Claude Code."
+icon: "plug"
+---
+
+The **Havincy MCP server** lets AI assistants generate images, videos, voice-overs, music and Encore effects, read your brand kits and media library, and publish to your social networks — in natural language, from the chat.
+
+```text
+https://havincy.com/mcp
+```
+
+<CardGroup cols={2}>
+  <Card title="ChatGPT" icon="comment" href="/mcp/chatgpt">Add Havincy as a custom connector.</Card>
+  <Card title="Claude" icon="message" href="/mcp/claude">claude.ai and Claude Desktop.</Card>
+  <Card title="Claude Code & Cursor" icon="terminal" href="/mcp/claude-code-and-cursor">From your terminal or your editor.</Card>
+  <Card title="Tools reference" icon="toolbox" href="/mcp/tools">The 16 tools your agent can call.</Card>
+</CardGroup>
+
+## How it works
+
+1. You add the server URL to your assistant.
+2. On first use, the assistant opens the Havincy sign-in. You choose the **workspace** and the **permissions** (read, generate, publish).
+3. You ask in plain language. The agent lists models, checks your credits, calls `generate`, waits for the result and returns the file link.
+
+No API key to copy: the connection uses OAuth 2.1. You can disconnect an app at any time in **Profile → API & MCP → Connected apps**.
+
+## Example prompts
+
+- *“Create 4 product shots of my sneaker on a marble table, 1:1.”*
+- *“Turn this photo into a vertical video with the melt effect.”*
+- *“Using my brand kit, write a 20 s voice-over for our launch and generate it in French.”*
+- *“Post the last video on YouTube Shorts tomorrow at 9am with a catchy caption.”*
+
+## Technical details
+
+| | |
+| --- | --- |
+| Transport | Streamable HTTP (JSON responses), stateless |
+| Protocol versions | 2025-11-25, 2025-06-18, 2025-03-26, 2024-11-05 |
+| Auth | OAuth 2.1 + PKCE, dynamic client registration; or `Authorization: Bearer hv_live_…` |
+| Tools | Filtered by granted permissions (`publish_to_social` only with the publish scope) |
+| Results | JSON text + `structuredContent` + `resource_link` to finished media |

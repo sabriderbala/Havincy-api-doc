@@ -1,20 +1,59 @@
 ---
 title: "Introduction"
-description: "Welcome to your project"
+description: "Generate images, videos, voice-overs, music, 3D and viral video effects with one API — or straight from ChatGPT, Claude and Cursor."
+icon: "rocket"
 ---
 
-Write a short description of your product here. What it does, who it's for, and what they can accomplish with it.
+Havincy is an AI content studio. The **Havincy API** gives your product, your scripts and your AI agents the same creative engine as the Havincy app: the latest image, video, voice, music and 3D models, Encore viral video effects, brand kits and publishing to social networks.
 
-<Tip>
-  Ready to make this your own? Start by editing this page. Update your `docs.json` file to customize your site. Then fill out the [Quickstart](/quickstart) page.
-</Tip>
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="bolt" href="/quickstart">
+    Create an API key and generate your first image in two minutes.
+  </Card>
 
-<Card title="Quickstart" icon="rocket" href="/quickstart">
-  This card links to the quickstart page in your project.
-</Card>
-<Card title="Components" icon="puzzle-piece" href="https://mintlify.com/docs/components">
-  Add cards, callouts, steps, tabs, and more to design and structure your pages.
-</Card>
-<Card title="Settings" icon="gear" href="https://mintlify.com/docs/organize/settings">
-  Set your site name, branding, and navigation in the `docs.json` file.
-</Card>
+  <Card title="Connect an AI agent (MCP)" icon="plug" href="/mcp/overview">
+    Use Havincy inside ChatGPT, Claude, Cursor or Claude Code — no code.
+  </Card>
+
+  <Card title="Generate media" icon="wand-magic-sparkles" href="/guides/generate-images">
+    Images, videos, voice-overs, music and 3D with the model of your choice.
+  </Card>
+
+  <Card title="API reference" icon="code" href="/api-reference/introduction">
+    Every endpoint, parameter and response.
+  </Card>
+</CardGroup>
+
+## What you can build
+
+<AccordionGroup>
+  <Accordion title="Creative features in your SaaS" icon="layer-group">
+    Add AI image and video generation to your product without managing a dozen model providers. Pick a model with `list_models`, send a prompt, get a hosted file back.
+  </Accordion>
+
+  <Accordion title="E-commerce and marketing automation" icon="cart-shopping">
+    Turn a product photo into campaign visuals, a vertical video or an Encore effect, then publish it to TikTok, Instagram Reels or YouTube Shorts.
+  </Accordion>
+
+  <Accordion title="No-code workflows" icon="diagram-project">
+    Call the REST API from n8n, Make or Zapier with an API key: one HTTP request per generation.
+  </Accordion>
+
+  <Accordion title="AI agents" icon="robot">
+    The Havincy MCP server exposes the same operations as tools. Agents choose the model, check credits, wait for the result and return the file.
+  </Accordion>
+</AccordionGroup>
+
+## One API, two ways in
+
+|  | REST API | MCP server |
+| --- | --- | --- |
+| Endpoint | `https://havincy.com/api/v1` | `https://havincy.com/mcp` |
+| For | Your backend, scripts, no-code tools | ChatGPT, Claude, Cursor, Claude Code, any MCP client |
+| Authentication | API key (`hv_live_…`) | OAuth sign-in (or an API key) |
+| Operations | Same 16 operations | Same 16 operations, as tools |
+| Billing | Your workspace credits | Your workspace credits |
+
+Every generation is charged to the connected Havincy workspace, at the same price as in the app. See [Credits and limits](/credits-and-limits).
+
+The OpenAPI spec is available at [`https://havincy.com/api/v1/openapi.json`](https://havincy.com/api/v1/openapi.json).

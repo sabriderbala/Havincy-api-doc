@@ -1,0 +1,43 @@
+---
+title: "Voice, music and 3D"
+description: "Text to speech, music generation and 3D models."
+icon: "waveform-lines"
+---
+
+## Voice-over (text to speech)
+
+```json
+{
+  "modality": "audio",
+  "track": "voice",
+  "model_id": "fal-elevenlabs-v4",
+  "prompt": "Welcome to our summer collection. Fresh colors, light fabrics, made to move.",
+  "voice": "Rachel",
+  "language": "en"
+}
+```
+
+For voice, `prompt` is the exact text to speak. Available voices and languages are in `options.voices` and `options.languages` of [`GET /models?modality=audio&track=voice`](/api-reference/list-models).
+
+## Music
+
+```json
+{
+  "modality": "audio",
+  "track": "music",
+  "model_id": "fal-elevenlabs-music",
+  "prompt": "Upbeat lo-fi beat for a product video, 30 seconds"
+}
+```
+
+## 3D models
+
+```json
+{
+  "modality": "3d",
+  "model_id": "fal-meshy-v6",
+  "prompt": "A stylized ceramic coffee mug with a wooden handle"
+}
+```
+
+Image-to-3D models accept one reference image (`reference_image_urls` or `reference_asset_ids`). The finished asset's `url` points to the 3D file (GLB).

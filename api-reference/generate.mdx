@@ -1,0 +1,92 @@
+---
+title: "Create a generation"
+api: "POST /generations"
+---
+
+Generates images, videos, voice-overs, music or 3D models and charges credits. Pick a `model_id` from [List models](/api-reference/list-models). Generation is asynchronous: the response contains the created assets with status `queued` or `processing`. Set `wait_seconds` (max 55) to wait for the result, or poll [Get a generation](/api-reference/get-generation).
+
+Required permission: `generate`. MCP tool: `generate`.
+
+<ParamField body="modality" type="string" required>
+  `image`, `video`, `audio` or `3d`.
+</ParamField>
+
+<ParamField body="model_id" type="string" required>
+  Model id from List models. Must belong to the modality (and track).
+</ParamField>
+
+<ParamField body="prompt" type="string" required>
+  What to create (max 5000 characters). For voice: the exact text to speak.
+</ParamField>
+
+<ParamField body="track" type="string">
+  Audio only: `voice` (default) or `music`.
+</ParamField>
+
+<ParamField body="count" type="integer" default="1">
+  Number of outputs, images only (1 to 4). Each output is charged.
+</ParamField>
+
+<ParamField body="aspect_ratio" type="string">
+  Image or video aspect ratio, e.g. `1:1`, `9:16`, `16:9`.
+</ParamField>
+
+<ParamField body="resolution" type="string">
+  Image resolution (e.g. `1k`, `2k`) or video resolution (e.g. `720p`, `1080p`).
+</ParamField>
+
+<ParamField body="duration" type="integer">
+  Video duration in seconds (see `options.durations_seconds`).
+</ParamField>
+
+<ParamField body="generate_audio" type="boolean">
+  Video: generate native sound when the model supports it.
+</ParamField>
+
+<ParamField body="voice" type="string">
+  Voice id for text to speech (see `options.voices`).
+</ParamField>
+
+<ParamField body="language" type="string">
+  Voice language code, e.g. `fr`, `en`.
+</ParamField>
+
+<ParamField body="reference_asset_ids" type="integer[]">
+  Library image ids used as references (max 4).
+</ParamField>
+
+<ParamField body="reference_image_urls" type="string[]">
+  Public `https` image URLs or `data:` URIs used as references (max 4, JPEG/PNG/WEBP, 10 MB).
+</ParamField>
+
+<ParamField body="wait_seconds" type="integer" default="0">
+  Wait up to N seconds (0 to 55) for completion before responding.
+</ParamField>
+
+<ResponseExample>
+```json 201
+{
+  "object": "generation",
+  "status": "queued",
+  "credits_charged": 48,
+  "covered_by_monthly_gift": false,
+  "credits_balance": 2432,
+  "assets": [
+    {
+      "id": 5678,
+      "object": "asset",
+      "kind": "image",
+      "modality": "image",
+      "status": "queued",
+      "model": "fal-nano-banana-2",
+      "prompt": "A cat astronaut floating above Paris, watercolor",
+      "credits": 12,
+      "settings": { "aspect_ratio": "1:1", "resolution": "1k" },
+      "origin": "rest",
+      "app_url": "https://havincy.com/ressources/5678",
+      "created_at": "2026-10-05T10:12:00+02:00"
+    }
+  ]
+}
+```
+</ResponseExample>

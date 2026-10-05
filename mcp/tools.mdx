@@ -1,0 +1,34 @@
+---
+title: "Tools reference"
+description: "The tools exposed by the Havincy MCP server."
+icon: "toolbox"
+---
+
+Each tool maps to a REST endpoint with the same parameters and response. See the [API reference](/api-reference/introduction) for full schemas.
+
+| Tool | Permission | What it does | REST equivalent |
+| --- | --- | --- | --- |
+| `get_account` | read | Workspace, credit balance, plan, rate limit | `GET /account` |
+| `list_models` | read | Models by modality with costs and valid options | `GET /models` |
+| `generate` | generate | Generate images, videos, voice, music or 3D | `POST /generations` |
+| `get_generation` | read | Status and URLs of generated assets | `GET /generations/{id}` |
+| `list_assets` | read | Browse the media library | `GET /assets` |
+| `upload_image` | generate | Import an image from a URL (free) | `POST /uploads` |
+| `list_encore_effects` | read | Viral video effects and their cost | `GET /encore/effects` |
+| `create_encore` | generate | Turn a photo into an Encore video | `POST /encore/creations` |
+| `get_encore_creation` | read | Status and share link of an Encore video | `GET /encore/creations/{id}` |
+| `list_characters` | read | Reusable Havincy characters | `GET /characters` |
+| `list_brand_kits` | read | Brand kits (tone, audience, colors…) | `GET /brand_kits` |
+| `list_projects` | read | Workspace projects | `GET /projects` |
+| `list_social_accounts` | read | Connected social accounts | `GET /social/accounts` |
+| `publish_to_social` | publish | Publish or schedule media | `POST /social/publications` |
+| `get_publication` | read | Publication status per platform | `GET /social/publications/{id}` |
+| `list_publications` | read | Recent publications | `GET /social/publications` |
+
+## Tool annotations
+
+Read-only tools are marked `readOnlyHint: true`. `publish_to_social` is marked `destructiveHint: true` and is only listed when the user granted the **publish** permission, so assistants ask for confirmation before posting.
+
+## Results
+
+Tools return the JSON result as text and `structuredContent`, plus `resource_link` items pointing to finished images and videos, so clients can display or download them directly.

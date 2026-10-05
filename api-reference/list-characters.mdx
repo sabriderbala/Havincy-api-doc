@@ -1,0 +1,19 @@
+---
+title: "List characters"
+api: "GET /characters"
+---
+
+Lists the ready Havincy characters of the workspace (reusable visual identities). A character id can replace the photo in [Create an Encore video](/api-reference/create-encore).
+
+Required permission: `read`. MCP tool: `list_characters`.
+
+<ResponseExample>
+```json 200
+{
+  "object": "list",
+  "data": [
+    { "id": 21, "object": "character", "name": "Milo", "notes": "Curious little robot", "image_url": "https://havincy.com/rails/active_storage/blobs/proxy/.../milo.png" }
+  ]
+}
+```
+</ResponseExample>

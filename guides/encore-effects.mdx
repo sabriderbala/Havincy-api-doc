@@ -1,0 +1,37 @@
+---
+title: "Encore effects"
+description: "Turn one photo into a viral vertical video."
+icon: "sparkles"
+---
+
+Encore effects turn a single photo into a 5–8 second vertical (9:16) video: melt, inflate, giant in the city, clones and more. No prompt, no settings: just the photo and the effect.
+
+<Steps>
+  <Step title="List the effects">
+    ```bash
+    curl https://havincy.com/api/v1/encore/effects \
+      -H "Authorization: Bearer $HAVINCY_API_KEY"
+    ```
+    Each effect has a `slug`, a name, a tagline and its cost in `credits`.
+  </Step>
+  <Step title="Create the video">
+    Send exactly one subject: `image_url`, `asset_id` (library image) or `character_id` (a Havincy character).
+
+    ```bash
+    curl -X POST https://havincy.com/api/v1/encore/creations \
+      -H "Authorization: Bearer $HAVINCY_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{ "effect": "melt", "image_url": "https://example.com/portrait.jpg" }'
+    ```
+    The photo must be at least 480 px on its shortest side; it is cropped to 9:16.
+  </Step>
+  <Step title="Get the result">
+    ```bash
+    curl https://havincy.com/api/v1/encore/creations/CREATION_ID \
+      -H "Authorization: Bearer $HAVINCY_API_KEY"
+    ```
+    When `status` is `completed`, the response contains the video URL and a public `share_url`.
+  </Step>
+</Steps>
+
+Up to 3 Encore creations can run at the same time per workspace.

@@ -1,0 +1,51 @@
+---
+title: "Publish to social networks"
+api: "POST /social/publications"
+---
+
+Publishes ready media to the connected social accounts, now or at `scheduled_at`. One video, or up to 10 images as a carousel. Requires a plan with Diffusion.
+
+Required permission: `publish`. MCP tool: `publish_to_social`.
+
+<ParamField body="asset_ids" type="integer[]" required>
+  Ready image or video asset ids (1 to 10).
+</ParamField>
+
+<ParamField body="caption" type="string" required>
+  Post caption, hashtags included (max 2200 characters).
+</ParamField>
+
+<ParamField body="social_account_ids" type="integer[]">
+  Target accounts from [List social accounts](/api-reference/list-social-accounts).
+</ParamField>
+
+<ParamField body="platforms" type="string[]">
+  Or target platforms (first connected account of each), e.g. `youtube`, `instagram`.
+</ParamField>
+
+<ParamField body="scheduled_at" type="string">
+  ISO 8601 date-time in the future. Omit to publish now.
+</ParamField>
+
+<ParamField body="options" type="object">
+  Platform options.
+  <Expandable title="properties">
+    <ResponseField name="youtube_format" type="string">`short` or `video`.</ResponseField>
+    <ResponseField name="title" type="string">Title (YouTube), max 100 characters.</ResponseField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json 201
+{
+  "id": 901,
+  "object": "publication",
+  "status": "scheduled",
+  "caption": "Summer drop is live #summer",
+  "scheduled_at": "2026-11-02T09:00:00+01:00",
+  "asset_ids": [5678],
+  "deliveries": [ { "platform": "youtube", "account_id": 12, "status": "pending" } ],
+  "app_url": "https://havincy.com/mon-espace/publications/901"
+}
+```
+</ResponseExample>

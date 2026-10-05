@@ -1,0 +1,38 @@
+---
+title: "List brand kits"
+api: "GET /brand_kits"
+---
+
+Lists the workspace brand kits: niche, tone, target audience, instructions, colors and fonts. Use them to write on-brand prompts.
+
+Required permission: `read`. MCP tool: `list_brand_kits`.
+
+<ParamField query="limit" type="integer" default="20">
+  Page size (1 to 50).
+</ParamField>
+
+<ParamField query="starting_after" type="integer">
+  Cursor: the `next_cursor` of the previous page.
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "object": "list",
+  "data": [
+    {
+      "id": 3,
+      "object": "brand_kit",
+      "name": "Acme Summer",
+      "niche": "Sportswear",
+      "tone": "Energetic, friendly",
+      "target_audience": "Runners 20-35",
+      "instructions": "Always show the product in motion.",
+      "colors": ["#FF5A1F", "#111111"],
+      "fonts": { "heading": "Geist", "body": "Inter" }
+    }
+  ],
+  "has_more": false
+}
+```
+</ResponseExample>

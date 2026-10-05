@@ -1,0 +1,28 @@
+---
+title: "List Encore effects"
+api: "GET /encore/effects"
+---
+
+Lists the Encore effects: one-click viral effects that turn a photo into a 5–8 s vertical (9:16) video.
+
+Required permission: `read`. MCP tool: `list_encore_effects`.
+
+<ResponseExample>
+```json 200
+{
+  "object": "list",
+  "data": [
+    {
+      "slug": "melt",
+      "object": "encore_effect",
+      "name": "Melt",
+      "tagline": "The subject melts like wax.",
+      "credits": 60,
+      "duration_seconds": 5,
+      "aspect_ratio": "9:16",
+      "app_url": "https://havincy.com/encore/melt"
+    }
+  ]
+}
+```
+</ResponseExample>

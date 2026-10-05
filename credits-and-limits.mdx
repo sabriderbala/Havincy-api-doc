@@ -1,0 +1,50 @@
+---
+title: "Credits and limits"
+description: "How generations are billed and how rate limits work."
+icon: "gauge"
+---
+
+## Credits
+
+The API uses the credits of the connected Havincy workspace, **at the same price as in the app**.
+
+- Each model has a cost per output: `credits_per_output` in [`GET /models`](/api-reference/list-models).
+- `POST /generations` debits the credits when the job is created and returns `credits_charged` and the new `credits_balance`.
+- If the generation fails on the provider side, the credits are refunded automatically.
+- Some monthly gifts ("Sparks") can cover a generation: the response then contains `covered_by_monthly_gift: true` and `credits_charged: 0`.
+- When the balance is too low, the API returns `402 insufficient_credits` with the required amount in `details`.
+
+Check the balance at any time with [`GET /account`](/api-reference/get-account). Credits are bought or renewed through a Havincy subscription or credit pack.
+
+## Rate limits
+
+Requests are limited **per workspace, per minute**, across the REST API and the MCP server combined. The limit depends on the workspace plan:
+
+| Plan | Default limit |
+| --- | --- |
+| Free | 20 requests / minute |
+| Paid plans | 120 requests / minute (higher on some plans) |
+
+Every response includes:
+
+```http
+X-RateLimit-Limit: 120
+X-RateLimit-Remaining: 117
+X-RateLimit-Reset: 1760000000
+```
+
+When the limit is reached, the API returns `429 rate_limited` with a `Retry-After` header (seconds). MCP protocol messages (`initialize`, `tools/list`, `ping`) do not count.
+
+## Other limits
+
+| Limit | Value |
+| --- | --- |
+| Images per request | up to 4 |
+| Reference images per generation | up to 4 |
+| Image upload size | 10 MB (JPEG, PNG, WEBP) |
+| `wait_seconds` | up to 55 |
+| Concurrent studio generations | 8 per workspace and modality |
+| Concurrent Encore creations | 3 per workspace |
+| Page size (`limit`) | up to 50 |
+
+Need higher limits? Contact [support@havincy.com](mailto:support@havincy.com).

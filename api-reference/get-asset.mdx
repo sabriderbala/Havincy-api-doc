@@ -1,0 +1,39 @@
+---
+title: "Get asset"
+api: "GET /assets/{id}"
+---
+
+Returns a single library asset with its status, settings and file URLs.
+
+Required permission: `read`.
+
+<ParamField path="id" type="integer" required>
+  Asset id.
+</ParamField>
+
+<ParamField query="wait_seconds" type="integer" default="0">
+  Wait up to N seconds (0 to 55) for completion.
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "id": 5678,
+  "object": "asset",
+  "kind": "video",
+  "modality": "video",
+  "status": "completed",
+  "model": "fal-kling-v3-pro",
+  "prompt": "A small robot walks along a beach at sunset",
+  "credits": 186,
+  "url": "https://havincy.com/rails/active_storage/blobs/proxy/.../video.mp4",
+  "download_url": "https://havincy.com/rails/active_storage/blobs/redirect/.../video.mp4?disposition=attachment",
+  "preview_url": "https://havincy.com/rails/active_storage/blobs/proxy/.../poster.jpg",
+  "mime_type": "video/mp4",
+  "settings": { "aspect_ratio": "9:16", "resolution": "1080p" },
+  "duration_seconds": 5,
+  "origin": "rest",
+  "app_url": "https://havincy.com/ressources/5678"
+}
+```
+</ResponseExample>

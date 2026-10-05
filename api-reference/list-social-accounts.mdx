@@ -1,0 +1,21 @@
+---
+title: "List social accounts"
+api: "GET /social/accounts"
+---
+
+Lists the social accounts connected in Havincy Diffusion and whether the plan allows publishing. Accounts are connected from the Havincy app.
+
+Required permission: `read`. MCP tool: `list_social_accounts`.
+
+<ResponseExample>
+```json 200
+{
+  "object": "list",
+  "publishing_allowed": true,
+  "connect_url": "https://havincy.com/mon-espace?view=accounts",
+  "data": [
+    { "id": 12, "object": "social_account", "platform": "youtube", "name": "Acme", "handle": "@acme", "publishable": true, "supports_images": false }
+  ]
+}
+```
+</ResponseExample>

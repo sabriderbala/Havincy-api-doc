@@ -1,0 +1,37 @@
+---
+title: "Errors"
+description: "Error format and codes."
+icon: "triangle-exclamation"
+---
+
+Errors use standard HTTP status codes and a JSON body with a stable `code`:
+
+```json
+{
+  "error": {
+    "code": "insufficient_credits",
+    "message": "Not enough credits.",
+    "details": { "required": 186, "balance": 40 }
+  }
+}
+```
+
+Use `code` in your logic; `message` is human-readable and localized to the user's language.
+
+| Status | Code | Meaning |
+| --- | --- | --- |
+| 401 | `missing_token`, `invalid_token` | No token, or the token is invalid, expired or revoked. |
+| 402 | `insufficient_credits` | Not enough credits for this generation. |
+| 403 | `insufficient_scope` | The token lacks the required permission (`details.required_scope`). |
+| 403 | `plan_required` | The workspace plan does not include the feature (e.g. publishing). |
+| 404 | `not_found` | The resource does not exist in this workspace. |
+| 422 | `invalid_request` | A parameter is missing or invalid. |
+| 422 | `generation_rejected` | The generation could not start (invalid model for the modality, missing reference image, too many running jobs…). |
+| 422 | `image_url_invalid`, `image_url_forbidden`, `image_url_unreachable`, `image_format`, `image_too_large` | The image you sent cannot be used. |
+| 429 | `rate_limited` | Rate limit reached. Wait `Retry-After` seconds. |
+| 500 | `internal_error` | Unexpected error. Retry later. |
+| 503 | `service_disabled` | The API is temporarily unavailable (maintenance). |
+
+## In MCP
+
+In the MCP server, an error inside a tool is returned as a tool result with `isError: true` and a readable message, so the agent can correct the call (for example pick a cheaper model) and retry. Authentication errors return HTTP 401 with a `WWW-Authenticate` header that lets the client start the OAuth flow.

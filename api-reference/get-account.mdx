@@ -1,0 +1,28 @@
+---
+title: "Get account"
+api: "GET /account"
+---
+
+Returns the connected Havincy workspace: name, credit balance, subscription plan, rate limit and granted scopes. Call it to check credits before generating.
+
+Required permission: `read`. MCP tool: `get_account`.
+
+This endpoint takes no parameters.
+
+<ResponseExample>
+```json 200
+{
+  "object": "account",
+  "id": 42,
+  "name": "Acme Studio",
+  "kind": "organization",
+  "credits_balance": 2480,
+  "plan": { "name": "Pro", "monthly_credits": 1600 },
+  "social_publishing": true,
+  "rate_limit_per_minute": 120,
+  "user": { "id": 7, "email": "dev@acme.com" },
+  "scopes": ["read", "generate"],
+  "app_url": "https://havincy.com/feed"
+}
+```
+</ResponseExample>

@@ -1,0 +1,31 @@
+---
+title: "API reference"
+description: "Base URL, authentication and conventions of the Havincy REST API v1."
+icon: "code"
+---
+
+## Base URL
+
+```text
+https://havincy.com/api/v1
+```
+
+## Authentication
+
+Send an API key in the `Authorization` header. See [Authentication](/authentication).
+
+```bash
+curl https://havincy.com/api/v1/account -H "Authorization: Bearer hv_live_..."
+```
+
+## Conventions
+
+- Requests and responses are JSON (`Content-Type: application/json`). `POST /uploads` also accepts `multipart/form-data`.
+- Successful `POST` requests return `201`, other requests `200`.
+- Lists return `{ "object": "list", "data": [...], "has_more": true, "next_cursor": 123 }`. Pass `next_cursor` as `starting_after` to get the next page.
+- Dates are ISO 8601.
+- Errors follow the [error format](/errors).
+
+## OpenAPI
+
+The machine-readable spec is available at [`https://havincy.com/api/v1/openapi.json`](https://havincy.com/api/v1/openapi.json) — import it into Postman, Insomnia or a ChatGPT GPT action.

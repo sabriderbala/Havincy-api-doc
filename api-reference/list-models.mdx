@@ -1,0 +1,45 @@
+---
+title: "List models"
+api: "GET /models"
+---
+
+Lists the AI models available for generation, grouped by modality (image, video, audio, 3d). Each model gives its credit cost per output, whether it accepts reference images, and the valid options (aspect ratios, durations, resolutions, voices). Use the returned `id` as `model_id`.
+
+Required permission: `read`. MCP tool: `list_models`.
+
+<ParamField query="modality" type="string">
+  Only this modality (default: all). Allowed values: `image`, `video`, `audio`, `3d`.
+</ParamField>
+
+<ParamField query="track" type="string">
+  Audio only: `voice` (text to speech) or `music`.
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "object": "list",
+  "data": [
+    {
+      "id": "fal-kling-v3-pro",
+      "object": "model",
+      "name": "Kling 3.0 Pro",
+      "modality": "video",
+      "track": "video",
+      "credits_per_output": 186,
+      "default": true,
+      "text_to_output": true,
+      "accepts_reference_images": true,
+      "max_reference_images": 1,
+      "max_outputs_per_request": 1,
+      "options": {
+        "aspect_ratios": ["16:9", "9:16", "1:1"],
+        "durations_seconds": [5, 8, 10, 15],
+        "resolutions": ["720p", "1080p"],
+        "generate_audio": { "default": true }
+      }
+    }
+  ]
+}
+```
+</ResponseExample>

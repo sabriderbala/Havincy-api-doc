@@ -1,0 +1,59 @@
+---
+title: "Generate images"
+description: "Text-to-image, image editing and references."
+icon: "image"
+---
+
+## Text to image
+
+```bash
+curl -X POST https://havincy.com/api/v1/generations \
+  -H "Authorization: Bearer $HAVINCY_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "modality": "image",
+    "model_id": "fal-gpt-image-2-5-sunburst",
+    "prompt": "Minimalist poster of a lemon on a pastel blue background, studio light",
+    "aspect_ratio": "9:16",
+    "resolution": "2k",
+    "count": 4,
+    "wait_seconds": 45
+  }'
+```
+
+- `count`: 1 to 4 images in one request (each one is charged).
+- `aspect_ratio` and `resolution`: see the model's `options` in [`GET /models?modality=image`](/api-reference/list-models).
+
+## Image editing and references
+
+Models that accept references (`accepts_reference_images: true`) can edit an image or use up to 4 references (product, character, style).
+
+<Tabs>
+  <Tab title="From a URL">
+    ```json
+    {
+      "modality": "image",
+      "model_id": "fal-nano-banana-2",
+      "prompt": "Place this bottle on a wet rock by the sea, golden hour",
+      "reference_image_urls": ["https://example.com/bottle.png"]
+    }
+    ```
+    Public `https` URLs and `data:image/...;base64,` URIs are accepted (JPEG, PNG, WEBP, max 10 MB). Imported references are free.
+  </Tab>
+  <Tab title="From the library">
+    Upload once with [`POST /uploads`](/api-reference/upload-image), then reuse the asset id:
+
+    ```json
+    {
+      "modality": "image",
+      "model_id": "fal-nano-banana-2",
+      "prompt": "Same bottle, studio packshot on white",
+      "reference_asset_ids": [1234]
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Stay on brand
+
+Read the workspace brand kits with [`GET /brand_kits`](/api-reference/list-brand-kits) (tone, audience, instructions, colors, fonts) and include them in your prompts.

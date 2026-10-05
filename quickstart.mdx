@@ -1,47 +1,105 @@
 ---
 title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+description: "Create an API key and generate your first image."
+icon: "bolt"
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
-
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
-
-## Prerequisites
-
-Before you begin, you must have:
-
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
-
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
+  <Step title="Create an API key">
+    Sign in to Havincy and open **Profile → API & MCP** ([havincy.com/profile/developpeurs](https://havincy.com/profile/developpeurs)). Under **API keys**, name your key, choose its permissions and click **Create key**.
+
+    <Warning>The full key (`hv_live_…`) is shown **only once**. Store it in a secret manager or an environment variable.</Warning>
 
     ```bash
-    npm install your-package
+    export HAVINCY_API_KEY="hv_live_..."
     ```
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
-
+  <Step title="Check your account">
     ```bash
-    your-cli init
+    curl https://havincy.com/api/v1/account \
+      -H "Authorization: Bearer $HAVINCY_API_KEY"
     ```
+
+    The response contains your workspace, your **credit balance** and the permissions of the key.
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
+  <Step title="Pick a model">
+    ```bash
+    curl "https://havincy.com/api/v1/models?modality=image" \
+      -H "Authorization: Bearer $HAVINCY_API_KEY"
+    ```
+
+    Each model lists its `id`, its cost (`credits_per_output`) and its valid options (aspect ratios, resolutions, durations, voices).
+  </Step>
+  <Step title="Generate an image">
+    <CodeGroup>
+    ```bash cURL
+    curl -X POST https://havincy.com/api/v1/generations \
+      -H "Authorization: Bearer $HAVINCY_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "modality": "image",
+        "model_id": "fal-nano-banana-2",
+        "prompt": "A cat astronaut floating above Paris, watercolor",
+        "aspect_ratio": "1:1",
+        "wait_seconds": 40
+      }'
+    ```
+
+    ```javascript Node.js
+    const res = await fetch("https://havincy.com/api/v1/generations", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.HAVINCY_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        modality: "image",
+        model_id: "fal-nano-banana-2",
+        prompt: "A cat astronaut floating above Paris, watercolor",
+        aspect_ratio: "1:1",
+        wait_seconds: 40,
+      }),
+    });
+    const generation = await res.json();
+    console.log(generation.assets[0].url);
+    ```
+
+    ```python Python
+    import os, requests
+
+    res = requests.post(
+        "https://havincy.com/api/v1/generations",
+        headers={"Authorization": f"Bearer {os.environ['HAVINCY_API_KEY']}"},
+        json={
+            "modality": "image",
+            "model_id": "fal-nano-banana-2",
+            "prompt": "A cat astronaut floating above Paris, watercolor",
+            "aspect_ratio": "1:1",
+            "wait_seconds": 40,
+        },
+    )
+    print(res.json()["assets"][0]["url"])
+    ```
+    </CodeGroup>
+
+    With `wait_seconds`, the request waits up to that many seconds for the result. When the asset is `completed`, its `url` points to the hosted file.
+  </Step>
+  <Step title="Poll longer jobs">
+    Videos usually take longer than the maximum wait (55 s). Poll the asset until its `status` is `completed` or `failed`:
 
     ```bash
-    your-cli start
+    curl https://havincy.com/api/v1/generations/ASSET_ID \
+      -H "Authorization: Bearer $HAVINCY_API_KEY"
     ```
+
+    See [Async generation and polling](/guides/async-and-polling).
   </Step>
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+## Next steps
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
-</Tip>
+<CardGroup cols={3}>
+  <Card title="Generate videos" icon="film" href="/guides/generate-videos" />
+  <Card title="Encore effects" icon="sparkles" href="/guides/encore-effects" />
+  <Card title="Connect ChatGPT or Claude" icon="plug" href="/mcp/overview" />
+</CardGroup>

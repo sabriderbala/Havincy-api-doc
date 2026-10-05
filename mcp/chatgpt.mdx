@@ -1,0 +1,30 @@
+---
+title: "Connect ChatGPT"
+description: "Add Havincy to ChatGPT as a custom connector."
+icon: "comment"
+---
+
+<Steps>
+  <Step title="Enable developer mode">
+    In ChatGPT, open **Settings → Apps & Connectors → Advanced settings** and turn on **Developer mode**.
+  </Step>
+  <Step title="Create the connector">
+    Click **Create**, then fill in:
+
+    | Field | Value |
+    | --- | --- |
+    | Name | Havincy |
+    | MCP server URL | `https://havincy.com/mcp` |
+    | Authentication | OAuth |
+  </Step>
+  <Step title="Sign in to Havincy">
+    ChatGPT opens the Havincy consent screen. Sign in, choose the workspace and the permissions, then click **Allow access**.
+  </Step>
+  <Step title="Use it in a chat">
+    In a new conversation, select **Havincy** in the tools menu and ask: _“Use Havincy to create a 9:16 video of a robot walking on a beach at sunset.”_
+  </Step>
+</Steps>
+
+<Tip>
+  Grant the **Publish** permission only if you want ChatGPT to post on your social accounts. You can change permissions by disconnecting and reconnecting the app.
+</Tip>

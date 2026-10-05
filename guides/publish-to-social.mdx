@@ -1,0 +1,38 @@
+---
+title: "Publish to social networks"
+description: "Post or schedule media on TikTok, Instagram Reels and YouTube Shorts."
+icon: "paper-plane"
+---
+
+Havincy Diffusion publishes media to the social accounts connected in the Havincy app. It requires a plan that includes Diffusion and a token with the **publish** permission.
+
+<Steps>
+  <Step title="Connect accounts in Havincy">
+    Social accounts are connected from the Havincy app (Diffusion → Accounts), not through the API. List them with:
+    ```bash
+    curl https://havincy.com/api/v1/social/accounts -H "Authorization: Bearer $HAVINCY_API_KEY"
+    ```
+  </Step>
+  <Step title="Publish or schedule">
+    ```bash
+    curl -X POST https://havincy.com/api/v1/social/publications \
+      -H "Authorization: Bearer $HAVINCY_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "asset_ids": [5678],
+        "caption": "Summer drop is live ☀️ #summer",
+        "social_account_ids": [12, 15],
+        "scheduled_at": "2026-11-02T09:00:00+01:00",
+        "options": { "youtube_format": "short", "title": "Summer drop" }
+      }'
+    ```
+    - One video, or up to 10 images as a carousel.
+    - Omit `scheduled_at` to publish now.
+    - Use `platforms: ["youtube"]` instead of `social_account_ids` to target the first connected account of a platform.
+  </Step>
+  <Step title="Track delivery">
+    `GET /social/publications/{id}` returns the status per platform and the post URLs once published.
+  </Step>
+</Steps>
+
+<Warning>Publishing posts publicly on your networks. In MCP, `publish_to_social` is marked as destructive so assistants ask for confirmation.</Warning>

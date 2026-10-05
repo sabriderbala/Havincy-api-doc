@@ -1,0 +1,41 @@
+---
+title: "Get a generation"
+api: "GET /generations/{id}"
+---
+
+Returns the status and file URLs of an asset created by a generation, an Encore creation or an upload. Status is `queued`, `processing`, `completed` or `failed`.
+
+Required permission: `read`. MCP tool: `get_generation` (accepts several `asset_ids`).
+
+<ParamField path="id" type="integer" required>
+  Asset id.
+</ParamField>
+
+<ParamField query="wait_seconds" type="integer" default="0">
+  Wait up to N seconds (0 to 55) for completion.
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "object": "generation",
+  "status": "completed",
+  "assets": [
+    {
+      "id": 5678,
+      "object": "asset",
+      "kind": "image",
+      "status": "completed",
+      "model": "fal-nano-banana-2",
+      "credits": 12,
+      "url": "https://havincy.com/rails/active_storage/blobs/proxy/.../image.png",
+      "download_url": "https://havincy.com/rails/active_storage/blobs/redirect/.../image.png?disposition=attachment",
+      "mime_type": "image/png",
+      "width": 1024,
+      "height": 1024,
+      "created_at": "2026-10-05T10:12:00+02:00"
+    }
+  ]
+}
+```
+</ResponseExample>

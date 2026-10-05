@@ -1,0 +1,25 @@
+---
+title: "Get a publication"
+api: "GET /social/publications/{id}"
+---
+
+Returns a publication with its status per platform and the post URLs once published.
+
+Required permission: `read`. MCP tool: `get_publication`.
+
+<ParamField path="id" type="integer" required>
+  Publication id.
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "id": 901,
+  "object": "publication",
+  "status": "published",
+  "published_at": "2026-11-02T09:00:12+01:00",
+  "asset_ids": [5678],
+  "deliveries": [ { "platform": "youtube", "account_id": 12, "status": "published", "post_url": "https://youtube.com/shorts/abc123" } ]
+}
+```
+</ResponseExample>

@@ -1,0 +1,52 @@
+---
+title: "Authentication"
+description: "API keys, OAuth for MCP clients, workspaces and permissions."
+icon: "key"
+---
+
+Every request is authenticated with a **Bearer token** in the `Authorization` header:
+
+```http
+Authorization: Bearer hv_live_...
+```
+
+Havincy accepts two kinds of tokens:
+
+| Token | Who uses it | How to get it |
+| --- | --- | --- |
+| **API key** (`hv_live_…`) | Your backend, scripts, n8n / Make / Zapier, MCP clients without OAuth | Profile → API & MCP → API keys |
+| **OAuth access token** | ChatGPT, Claude, Cursor, Claude Code and other MCP clients | Obtained automatically when the user connects the app (see [MCP](/mcp/overview)) |
+
+## Workspaces
+
+A token is tied to **one Havincy workspace** (a personal account or an organization). Generations are charged to that workspace's credits and stored in its library. The user who created the key is recorded as the author of each generation.
+
+If that user leaves the workspace or their account is locked, the key stops working.
+
+## Permissions (scopes)
+
+| Scope | Allows |
+| --- | --- |
+| `read` | Account, credits, models, media library, brand kits, projects, publications. Always granted. |
+| `generate` | Create images, videos, audio, 3D and Encore effects, import images. Uses credits. |
+| `publish` | Publish or schedule media on the workspace's connected social accounts. |
+
+A request that needs a scope the token does not have returns `403 insufficient_scope`. New keys get `read` and `generate` by default; `publish` must be enabled explicitly.
+
+## Managing keys
+
+- Keys can expire after 30, 90 or 365 days, or never.
+- A workspace can have a limited number of active keys (10 by default).
+- Revoke a key at any time from **Profile → API & MCP**; it stops working immediately.
+- Havincy only stores a hash of the key: if you lose it, create a new one.
+
+<Warning>Never expose an API key in front-end code or a public repository. Call the API from your server.</Warning>
+
+## OAuth 2.1 for MCP clients
+
+The MCP server implements OAuth 2.1 with PKCE (S256) and dynamic client registration (RFC 7591). MCP clients discover it automatically:
+
+- Protected resource metadata: `https://havincy.com/.well-known/oauth-protected-resource/mcp`
+- Authorization server metadata: `https://havincy.com/.well-known/oauth-authorization-server`
+
+On the consent screen the user chooses the workspace and the permissions to grant. Access tokens last 2 hours and are refreshed automatically by the client. Users can disconnect an app at any time from **Profile → API & MCP → Connected apps**.

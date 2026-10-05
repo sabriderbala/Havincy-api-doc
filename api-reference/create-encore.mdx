@@ -1,0 +1,41 @@
+---
+title: "Create an Encore video"
+api: "POST /encore/creations"
+---
+
+Turns one photo into a viral vertical video with an Encore effect and charges the effect's credits. Provide exactly one subject: `image_url`, `asset_id` or `character_id`. The video renders asynchronously.
+
+Required permission: `generate`. MCP tool: `create_encore`.
+
+<ParamField body="effect" type="string" required>
+  Effect slug from [List Encore effects](/api-reference/list-encore-effects).
+</ParamField>
+
+<ParamField body="image_url" type="string">
+  Photo as a public `https` URL or `data:` URI (JPEG, PNG, WEBP; at least 480 px on the shortest side).
+</ParamField>
+
+<ParamField body="asset_id" type="integer">
+  Library image id.
+</ParamField>
+
+<ParamField body="character_id" type="integer">
+  Havincy character id from [List characters](/api-reference/list-characters).
+</ParamField>
+
+<ParamField body="wait_seconds" type="integer" default="0">
+  Wait up to N seconds (0 to 55) for completion.
+</ParamField>
+
+<ResponseExample>
+```json 201
+{
+  "id": 314,
+  "object": "encore_creation",
+  "effect": "melt",
+  "status": "queued",
+  "video": { "id": 5700, "object": "asset", "kind": "video", "status": "queued", "credits": 60 },
+  "created_at": "2026-10-05T10:12:00+02:00"
+}
+```
+</ResponseExample>

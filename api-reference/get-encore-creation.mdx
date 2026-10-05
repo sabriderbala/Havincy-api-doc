@@ -1,0 +1,38 @@
+---
+title: "Get an Encore creation"
+api: "GET /encore/creations/{id}"
+---
+
+Returns an Encore creation: status, video and public share link once ready.
+
+Required permission: `read`. MCP tool: `get_encore_creation`.
+
+<ParamField path="id" type="integer" required>
+  Encore creation id.
+</ParamField>
+
+<ParamField query="wait_seconds" type="integer" default="0">
+  Wait up to N seconds (0 to 55) for completion.
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "id": 314,
+  "object": "encore_creation",
+  "effect": "melt",
+  "status": "completed",
+  "video": {
+    "id": 5700,
+    "object": "asset",
+    "kind": "video",
+    "status": "completed",
+    "url": "https://havincy.com/rails/active_storage/blobs/proxy/.../encore.mp4",
+    "mime_type": "video/mp4",
+    "duration_seconds": 5
+  },
+  "start_frame_url": "https://havincy.com/rails/active_storage/blobs/proxy/.../frame.jpg",
+  "share_url": "https://havincy.com/v/9Xk2pQ"
+}
+```
+</ResponseExample>

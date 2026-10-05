@@ -1,72 +1,122 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "theme": "maple",
+  "name": "Havincy",
+  "description": "Havincy API and MCP server: generate images, videos, voice-overs, music, 3D and viral Encore video effects from your code or from ChatGPT, Claude and Cursor.",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
-  },
-  "favicon": "/favicon.svg",
-  "navigation": {
-    "pages": [
-      {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    "primary": "#7C5DFA",
+    "light": "#A08CFC",
+    "dark": "#6447E8"
   },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
+  "favicon": "/favicon.svg",
+  "appearance": {
+    "default": "dark"
+  },
+  "background": {
+    "color": {
+      "light": "#FFFFFF",
+      "dark": "#0F0F10"
+    }
+  },
   "navbar": {
     "links": [
-      {
-        "label": "Support",
-        "href": "mailto:support@mintlify.com"
-      }
+      { "label": "MCP landing", "href": "https://havincy.com/developers" },
+      { "label": "Support", "href": "mailto:support@havincy.com" }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
+      "label": "Get an API key",
+      "href": "https://havincy.com/profile/developpeurs"
     }
-  },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "website": "https://havincy.com"
     }
+  },
+  "contextual": {
+    "options": ["copy", "view", "chatgpt", "claude", "perplexity", "mcp", "cursor", "vscode"],
+    "display": "header"
+  },
+  "api": {
+    "playground": { "display": "interactive" },
+    "examples": { "languages": ["curl", "javascript", "python"] },
+    "mdx": {
+      "server": "https://havincy.com/api/v1",
+      "auth": { "method": "bearer" }
+    }
+  },
+  "seo": {
+    "metatags": { "og:site_name": "Havincy Developers" }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Get started",
+            "pages": ["index", "quickstart", "authentication", "credits-and-limits", "errors"]
+          },
+          {
+            "group": "MCP for AI agents",
+            "pages": ["mcp/overview", "mcp/chatgpt", "mcp/claude", "mcp/claude-code-and-cursor", "mcp/tools"]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/generate-images",
+              "guides/generate-videos",
+              "guides/audio-and-3d",
+              "guides/encore-effects",
+              "guides/async-and-polling",
+              "guides/publish-to-social"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API reference",
+        "groups": [
+          { "group": "Overview", "pages": ["api-reference/introduction"] },
+          { "group": "Account & models", "pages": ["api-reference/get-account", "api-reference/list-models"] },
+          {
+            "group": "Generation",
+            "pages": ["api-reference/generate", "api-reference/get-generation", "api-reference/upload-image"]
+          },
+          {
+            "group": "Encore effects",
+            "pages": [
+              "api-reference/list-encore-effects",
+              "api-reference/create-encore",
+              "api-reference/get-encore-creation",
+              "api-reference/list-characters"
+            ]
+          },
+          {
+            "group": "Library & brand",
+            "pages": [
+              "api-reference/list-assets",
+              "api-reference/get-asset",
+              "api-reference/list-brand-kits",
+              "api-reference/list-projects"
+            ]
+          },
+          {
+            "group": "Social publishing",
+            "pages": [
+              "api-reference/list-social-accounts",
+              "api-reference/publish-to-social",
+              "api-reference/get-publication",
+              "api-reference/list-publications"
+            ]
+          }
+        ]
+      }
+    ]
   }
 }

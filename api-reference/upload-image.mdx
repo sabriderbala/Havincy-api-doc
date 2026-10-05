@@ -1,0 +1,43 @@
+---
+title: "Upload an image"
+api: "POST /uploads"
+---
+
+Imports an image into the library (free, no credits) so you can reuse it as a reference in generations or Encore effects. Send either `image_url` (JSON) or `file` (multipart). The image type is detected from its bytes.
+
+Required permission: `generate`. MCP tool: `upload_image`.
+
+<ParamField body="image_url" type="string">
+  Public `https` URL or `data:image/...;base64,` URI. JPEG, PNG or WEBP, max 10 MB.
+</ParamField>
+
+<ParamField body="file" type="file">
+  Image file sent as `multipart/form-data` (alternative to `image_url`).
+</ParamField>
+
+<ParamField body="title" type="string">
+  Title in the library (max 160 characters).
+</ParamField>
+
+<RequestExample>
+```bash multipart
+curl -X POST https://havincy.com/api/v1/uploads \
+  -H "Authorization: Bearer $HAVINCY_API_KEY" \
+  -F file=@product.png -F title="Product shot"
+```
+</RequestExample>
+
+<ResponseExample>
+```json 201
+{
+  "id": 5690,
+  "object": "asset",
+  "kind": "image",
+  "status": "completed",
+  "title": "Product shot",
+  "credits": 0,
+  "url": "https://havincy.com/rails/active_storage/blobs/proxy/.../product.png",
+  "mime_type": "image/png"
+}
+```
+</ResponseExample>

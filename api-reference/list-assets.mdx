@@ -1,0 +1,45 @@
+---
+title: "List assets"
+api: "GET /assets"
+---
+
+Lists media in the Havincy library, newest first: images, videos, voice, music, 3D and uploads.
+
+Required permission: `read`. MCP tool: `list_assets`.
+
+<ParamField query="kind" type="string">
+  `image`, `video`, `voice`, `music`, `audio`, `model3d` or `upload`.
+</ParamField>
+
+<ParamField query="status" type="string">
+  `queued`, `processing`, `completed` or `failed`.
+</ParamField>
+
+<ParamField query="query" type="string">
+  Search in title and prompt.
+</ParamField>
+
+<ParamField query="project_id" type="integer">
+  Only the media of this project.
+</ParamField>
+
+<ParamField query="limit" type="integer" default="20">
+  Page size (1 to 50).
+</ParamField>
+
+<ParamField query="starting_after" type="integer">
+  Cursor: the `next_cursor` of the previous page.
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "object": "list",
+  "data": [
+    { "id": 5678, "object": "asset", "kind": "image", "status": "completed", "url": "https://havincy.com/rails/active_storage/blobs/proxy/.../image.png" }
+  ],
+  "has_more": true,
+  "next_cursor": 5678
+}
+```
+</ResponseExample>

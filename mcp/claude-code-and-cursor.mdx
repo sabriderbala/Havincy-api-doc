@@ -1,0 +1,50 @@
+---
+title: "Claude Code, Cursor and other clients"
+description: "Connect Havincy from your terminal, your editor or any MCP client."
+icon: "terminal"
+---
+
+<Tabs>
+  <Tab title="Claude Code">
+    ```bash
+    claude mcp add --transport http havincy https://havincy.com/mcp
+    ```
+
+    Then type `/mcp` in Claude Code, select **havincy** and sign in. Generated files come back as links your agent can download into your project.
+  </Tab>
+  <Tab title="Cursor">
+    Open **Cursor Settings → MCP → Add new MCP server**, or edit `~/.cursor/mcp.json`:
+
+    ```json
+    {
+      "mcpServers": {
+        "havincy": { "url": "https://havincy.com/mcp" }
+      }
+    }
+    ```
+
+    Cursor opens the Havincy sign-in the first time a tool is used.
+  </Tab>
+  <Tab title="Other clients (API key)">
+    Clients that do not support OAuth can send an API key:
+
+    ```json
+    {
+      "mcpServers": {
+        "havincy": {
+          "url": "https://havincy.com/mcp",
+          "headers": { "Authorization": "Bearer hv_live_..." }
+        }
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Test with MCP Inspector
+
+```bash
+npx @modelcontextprotocol/inspector
+```
+
+Choose **Streamable HTTP**, enter `https://havincy.com/mcp` and connect: the inspector runs the OAuth flow, then lists the tools.
