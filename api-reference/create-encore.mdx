@@ -24,8 +24,16 @@ Required permission: `generate`. MCP tool: `create_encore`.
 </ParamField>
 
 <ParamField body="wait_seconds" type="integer" default="0">
-  Wait up to N seconds (0 to 55) for completion.
+  Wait up to N seconds (0 to 25) for completion.
 </ParamField>
+
+<ParamField body="force_new" type="boolean" default="false">
+  Launch again even if an identical call was made in the last 10 minutes (charges again).
+</ParamField>
+
+<Note>
+  Safe retries: an identical call (same parameters, `wait_seconds` aside) repeated within 10 minutes returns the already launched job with `"deduplicated": true` and charges nothing. Never blindly retry after a timeout or a 502: check the job first.
+</Note>
 
 <ResponseExample>
 ```json 201

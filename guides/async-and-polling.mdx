@@ -15,7 +15,7 @@ Generations are asynchronous. A generation goes through these statuses:
 
 ## Option 1: wait in the request
 
-Add `wait_seconds` (0–55) to `POST /generations`, `GET /generations/{id}`, `POST /encore/creations` or `GET /encore/creations/{id}`. The API returns as soon as the job is finished, or after the delay with the current status. Ideal for images.
+Add `wait_seconds` (0–25) to `POST /generations`, `GET /generations/{id}`, `POST /encore/creations` or `GET /encore/creations/{id}`. The API returns as soon as the job is finished, or after the delay with the current status. Ideal for images.
 
 ## Option 2: poll
 

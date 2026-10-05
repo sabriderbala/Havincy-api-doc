@@ -85,7 +85,7 @@ icon: "bolt"
     With `wait_seconds`, the request waits up to that many seconds for the result. When the asset is `completed`, its `url` points to the hosted file.
   </Step>
   <Step title="Poll longer jobs">
-    Videos usually take longer than the maximum wait (55 s). Poll the asset until its `status` is `completed` or `failed`:
+    Videos usually take longer than the maximum wait (25 s). Poll the asset until its `status` is `completed` or `failed`:
 
     ```bash
     curl https://havincy.com/api/v1/generations/ASSET_ID \

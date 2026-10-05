@@ -3,7 +3,7 @@ title: "Create a generation"
 api: "POST /generations"
 ---
 
-Generates images, videos, voice-overs, music or 3D models and charges credits. Pick a `model_id` from [List models](/api-reference/list-models). Generation is asynchronous: the response contains the created assets with status `queued` or `processing`. Set `wait_seconds` (max 55) to wait for the result, or poll [Get a generation](/api-reference/get-generation).
+Generates images, videos, voice-overs, music or 3D models and charges credits. Pick a `model_id` from [List models](/api-reference/list-models). Generation is asynchronous: the response contains the created assets with status `queued` or `processing`. Set `wait_seconds` (max 25) to wait for the result, or poll [Get a generation](/api-reference/get-generation).
 
 Required permission: `generate`. MCP tool: `generate`.
 
@@ -60,8 +60,16 @@ Required permission: `generate`. MCP tool: `generate`.
 </ParamField>
 
 <ParamField body="wait_seconds" type="integer" default="0">
-  Wait up to N seconds (0 to 55) for completion before responding.
+  Wait up to N seconds (0 to 25) for completion before responding.
 </ParamField>
+
+<ParamField body="force_new" type="boolean" default="false">
+  Launch again even if an identical call was made in the last 10 minutes (charges again).
+</ParamField>
+
+<Note>
+  Safe retries: an identical call (same parameters, `wait_seconds` aside) repeated within 10 minutes returns the already launched job with `"deduplicated": true` and charges nothing. Never blindly retry after a timeout or a 502: check the job first.
+</Note>
 
 <ResponseExample>
 ```json 201
